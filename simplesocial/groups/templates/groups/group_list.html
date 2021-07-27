@@ -1,0 +1,196 @@
+{% extends "groups/group_base.html" %}
+
+{% block pregroup %}
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 12px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myUL {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#myUL li a {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block
+}
+
+#myUL li a:hover:not(.header) {
+  background-color: #eee;
+}
+
+.zoom {
+  padding: 0px;
+  
+  transition: transform .2s;
+  margin: 0 auto;
+}
+.zoom:hover {
+  -ms-transform: scale(1.05); /* IE 9 */
+  -webkit-transform: scale(1.05); /* Safari 3-8 */
+  transform: scale(1.05); 
+}
+</style>
+
+    <div class="col-md-4">
+        <div class="content">
+            {% if user.is_authenticated %}
+                <h2>  <b>Welcome Back!</b>
+                <a href="{% url 'posts:for_user' username=user.username %}"> @{{user.username}} </a>
+                </h2>
+            {% endif %}
+
+            <h2>Groups..</h2>
+            <h2>Welcome to the groups page!</h2>
+        </div>
+        <br>
+        {% if user.is_authenticated %}
+            <div class="zoom"> 
+                <a href="{% url 'groups:create' %}" class="btn btn-md btn-fill btn-warning" >
+            <span class="glyphicon glyphicon-plus-sign "></span> Create New Group </a>
+            </div>
+            
+        {% endif %}
+
+        <br>
+        <br>
+        
+
+
+    </div>
+
+<script>
+
+</script>
+
+
+{% endblock %}
+
+
+
+{% block group_content %}
+
+
+
+<style>
+.zoom {
+  padding: 5px;
+  
+  transition: transform .2s;
+  margin: 0 auto;
+}
+.zoom:hover {
+  -ms-transform: scale(1.03); /* IE 9 */
+  -webkit-transform: scale(1.03); /* Safari 3-8 */
+  transform: scale(1.03); 
+}
+
+#myBtn {
+  display: none;
+  position: fixed;
+  bottom: 40px;
+  left: 40px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: grey;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+#myBtn:hover {
+  background-color: #555;
+}
+
+
+</style>
+
+
+
+    <br>
+    
+    <div class="col-md-8">
+        <div class="list-group jumbotron" id="myList">
+            {% for group in object_list %}
+
+            <div class="zoom">
+                <a class="list-group-item  " href="{% url 'groups:single' slug=group.slug %}">
+                    <h3 class="title list-group-item-heading" ><b> {{group.name}} </b> </h3>
+                    <div class="list-group-item-text container-fluid">
+                        {{ group.description_html|safe }}
+                        <div class="row">
+                            <div class="col-md-4">
+                                <span class="badge" >{{group.members.count}}</span>
+                                member{{group.members.count|pluralize}}
+                            </div>
+                            <div class="col-md-4">
+                                <span class="badge" >{{group.posts.count}}</span>
+                                post{{group.posts.count|pluralize}}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <br>
+                <br>
+            </div>   
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Top <span class="glyphicon glyphicon-arrow-up"></span></button>
+
+<script>
+ 
+var myButton = document.querySelector("#myBtn");
+
+window.scrollTo({
+  top: 0,
+  left: 0,
+  behavior: 'smooth'
+});
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction(){
+    if(document.body.scrollTop > 20 || document.documentElement.scrollTop > 20){
+        myButton.style.display = "block";
+    }
+    else{
+        myButton.style.display = "none";
+    }
+}
+
+function topFunction(){
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+
+</script>
+
+{% endblock %}
+
+

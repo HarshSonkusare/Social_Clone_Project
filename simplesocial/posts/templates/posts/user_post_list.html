@@ -1,0 +1,89 @@
+{% extends "posts/post_base.html" %}
+
+{% block prepost %}
+    {% if user.username == post_user %}
+    <div class="col-md-4">
+        <h1> Hello <a href="{% url 'posts:for_user' username=user.username %}"> @{{user.username}} </a></h1>
+        <h2> Your Posts..  </h2>
+    </div>
+    {% else %}
+
+    <div class="col-md-4">
+        <h1> Posts By <a href="{% url 'posts:for_user' username=user.username %}"> @{{post_user}} </a></h1>
+        {% comment %} <h2> Your Posts..  </h2> {% endcomment %}
+    </div>
+    
+    {% endif %}
+{% endblock %}
+
+{% block post_content %}
+
+<style>
+#myBtn {
+  display: none;
+  position: fixed;
+  bottom: 40px;
+  left: 40px;
+  z-index: 99;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: grey;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+#myBtn:hover {
+  background-color: #555;
+}
+
+
+</style>
+
+
+
+    <div class="col-md-8">
+        <div class="card card-with-shadow">
+            {% for post in post_list %}
+                {% include "posts/_post.html" %}
+            {% endfor %}
+        </div>
+
+    </div>
+
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Top <span class="glyphicon glyphicon-arrow-up"></span></button>
+
+
+<script>
+ 
+var myButton = document.querySelector("#myBtn");
+
+window.scrollTo({
+  top: 0,
+  left: 0,
+  behavior: 'smooth'
+});
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction(){
+    if(document.body.scrollTop > 20 || document.documentElement.scrollTop > 20){
+        myButton.style.display = "block";
+    }
+    else{
+        myButton.style.display = "none";
+    }
+}
+
+function topFunction(){
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
+
+</script>
+
+
+
+{% endblock %}
