@@ -23,9 +23,9 @@ TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 SECRET_KEY = 'yl$ndb_r8(yw8a6rw=&=v%swwol1(o*_yy$vkvlsth67%739w8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'HarshSonkusare.pythonanywhere.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
