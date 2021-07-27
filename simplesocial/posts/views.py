@@ -66,3 +66,4 @@ class DeletePost(LoginRequiredMixin,SelectRelatedMixin,generic.DeleteView):
     def delete(self,*args,**kwargs):
         messages.success(self.request,'Post Deleted!')
         return super().delete(*args,**kwargs)
+
