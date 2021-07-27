@@ -5,3 +5,8 @@
     margin-top : 50px;
 }
 
+@import url('https://fonts.googleapis.com/css?family=Courgette|Pacifico|Reenie+Beanie|Space+Mono');
+body{
+	background-image: url("http://images.pond5.com/simple-star-space-background-effect-footage-023768280_prevstill.jpeg");
+	background-attachment: fixed;
+}
